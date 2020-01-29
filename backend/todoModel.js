@@ -12,7 +12,7 @@ const todoSchema = new Schema({
     priority: {
         type: String
     },
-    submission: {
+    completed: {
         type: Boolean
     }
 }, {

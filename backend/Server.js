@@ -31,7 +31,7 @@ ToDoRouter.route('/create').post((req, res) => {
             res.json(todo);
         }), (err) => {
             res.statusCode = 404;
-            console.log(err);
+            res.send('creating new Todo Failed!')
         }
 })
 
@@ -44,7 +44,7 @@ ToDoRouter.route('/').get((req, res) => {
             res.json(todos);
         }), (err) => {
             res.statusCode = 404;
-            console.log(err);
+            res.send('ToDo list is empty!')
         }
 });
 
@@ -57,19 +57,27 @@ ToDoRouter.route('/:id').get((req, res) => {
             res.json(todo);
         }), (err) => {
             res.statusCode = 404
-            console.log(err)
+            res.send('ToDo is not available.')
         }
 });
 
 // update todo 
 ToDoRouter.route('/update/:id').put((req, res, next) => {
-    ToDo.findByIdAndUpdate(req.params.id, { $set: req.body }, { new: true })
+    ToDo.findByIdAndUpdate(req.params.id,
+        {
+            $set: req.body
+        },
+        {
+            new: true
+        }
+    )
         .then((todo) => {
             res.statusCode = 200;
             res.setHeader('content-type', 'application/json')
             res.json(todo)
         }).catch((err) => {
-            next(err)
+            res.statusCode = 404
+            res.send('Updation is failed!')
         })
 })
 
