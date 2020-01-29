@@ -19,7 +19,7 @@ connect.then((db) => {
     console.log(err)
 }
 
-//***************************************************//
+//*******************Todos Routing**************************//
 App.use('/', ToDoRouter)
 
 //create new todos
@@ -72,13 +72,5 @@ ToDoRouter.route('/update/:id').put((req, res, next) => {
             next(err)
         })
 })
-
-
-
-
-
-//App.get('/', (req, res) => res.send('Hello World!'))
-
-
 
 App.listen(PORT, () => console.log("server is running on " + PORT))
