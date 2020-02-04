@@ -1,4 +1,5 @@
 import React from 'react'
+import Axios from 'axios'
 
 // create class component
 class CreateToDo extends React.Component {
@@ -38,6 +39,16 @@ class CreateToDo extends React.Component {
         console.log(this.state.description)
         console.log(this.state.responsible)
         console.log(this.state.priority)
+
+        const newToDo = {
+            description: this.state.description,
+            responsible: this.state.responsible,
+            priority: this.state.priority,
+            submission: this.state.submission
+        }
+
+        Axios.post('http://localhost:4000/todo/add', newToDo)
+            .then(res => console.log(res));
 
         // reset the state of the app 
         this.setState({
