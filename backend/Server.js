@@ -20,20 +20,7 @@ connect.then((db) => {
 }
 
 //*******************Todos Routing**************************//
-App.use('/', ToDoRouter)
-
-//create new todos
-ToDoRouter.route('/create').post((req, res) => {
-    ToDo.create(req.body)
-        .then((todo) => {
-            res.statusCode = 200;
-            res.setHeader('content-type', 'aplication/json');
-            res.json(todo);
-        }), (err) => {
-            res.statusCode = 404;
-            res.send('creating new Todo Failed!')
-        }
-})
+App.use('/todo', ToDoRouter)
 
 //show all todos list
 ToDoRouter.route('/').get((req, res) => {
@@ -47,6 +34,19 @@ ToDoRouter.route('/').get((req, res) => {
             res.send('ToDo list is empty!')
         }
 });
+
+//create new todos
+ToDoRouter.route('/add').post((req, res) => {
+    ToDo.create(req.body)
+        .then((todo) => {
+            res.statusCode = 200;
+            res.setHeader('content-type', 'aplication/json');
+            res.json(todo);
+        }), (err) => {
+            res.statusCode = 404;
+            res.send('creating new Todo Failed!')
+        }
+})
 
 // get todo by id
 ToDoRouter.route('/:id').get((req, res) => {
